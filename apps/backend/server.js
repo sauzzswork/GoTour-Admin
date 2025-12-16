@@ -9,7 +9,7 @@ const app = express();
 app.use(cors({
    origin: [
     'http://localhost:3000',
-    'https://go-tour-admin-frontend.vercel.app/admin/login'
+    'https://go-tour-admin-frontend.vercel.app'
   ],
   credentials: true
 }));
