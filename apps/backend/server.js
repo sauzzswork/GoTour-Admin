@@ -6,37 +6,55 @@ require('dotenv').config();
 const app = express();
 
 /* =======================
-   FIXED CORS CONFIG
+   CORS CONFIG
    ======================= */
-app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'https://go-tour-admin-frontend.vercel.app'
+app.use(
+  cors({
+    origin: [
+      'http://localhost:3000',
+      'https://go-tour-admin-frontend.vercel.app',
       'https://go-tour-admin-frontend-q0tgvsb1a-saurav-mishras-projects.vercel.app'
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+  })
+);
 
+/* =======================
+   MIDDLEWARES
+   ======================= */
 app.use(express.json());
 
-/* ========= ROUTES ========= */
+/* =======================
+   ROUTES
+   ======================= */
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/tours', require('./routes/tours'));
 
-/* ========= HEALTH ========= */
+/* =======================
+   HEALTH CHECK
+   ======================= */
 app.get('/api/health', (req, res) => {
-  res.json({ message: 'Backend is running' });
+  res.status(200).json({ message: 'Backend is running 🚀' });
 });
 
-/* ========= DATABASE ========= */
+/* =======================
+   DATABASE
+   ======================= */
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB connected'))
-  .catch((err) => console.error('❌ MongoDB connection error:', err));
+  .catch((err) => {
+    console.error('❌ MongoDB connection error:', err);
+    process.exit(1);
+  });
 
-/* ========= SERVER ========= */
+/* =======================
+   SERVER
+   ======================= */
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
