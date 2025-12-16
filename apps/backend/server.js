@@ -12,7 +12,7 @@ app.use(cors({
   origin: [
     'http://localhost:3000',
     'https://go-tour-admin-frontend.vercel.app'
-      'https://go-tour-admin-frontend-q0tgvsb1a-saurav-mishras-projects.vercel.app/admin/login'
+      'https://go-tour-admin-frontend-q0tgvsb1a-saurav-mishras-projects.vercel.app'
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
