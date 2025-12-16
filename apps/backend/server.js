@@ -9,7 +9,8 @@ const app = express();
 app.use(cors({
    origin: [
     'http://localhost:3000',
-    'https://go-tour-admin-frontend.vercel.app'
+    'https://go-tour-admin-frontend-mq0cqgb8-saurav-mishras-projects.vercel.app
+'
   ],
   credentials: true
 }));
