@@ -6,16 +6,16 @@ require('dotenv').config();
 const app = express();
 
 /* =======================
-   CORRECT CORS CONFIG
+   FIXED CORS CONFIG
    ======================= */
 app.use(cors({
-  origin: '*', // ✅ allow all origins (safe because JWT is used)
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  origin: [
+    'http://localhost:3000',
+    'https://go-tour-admin-frontend.vercel.app'
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
-
-// Handle preflight
-app.options('*', cors());
 
 app.use(express.json());
 
