@@ -5,33 +5,37 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware - CORS with specific origin
+/* =======================
+   CORRECT CORS CONFIG
+   ======================= */
 app.use(cors({
-   origin: [
-    'http://localhost:3000',
-    'https://go-tour-admin-frontend-mq0cqgb8-saurav-mishras-projects.vercel.app'
-  ],
-  credentials: true
+  origin: '*', // ✅ allow all origins (safe because JWT is used)
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+// Handle preflight
+app.options('*', cors());
+
 app.use(express.json());
 
-// Routes
+/* ========= ROUTES ========= */
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/tours', require('./routes/tours'));
 
-// Health check
+/* ========= HEALTH ========= */
 app.get('/api/health', (req, res) => {
   res.json({ message: 'Backend is running' });
 });
 
-// Connect to MongoDB
+/* ========= DATABASE ========= */
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB connected'))
-  .catch((err) => console.error('MongoDB connection error:', err));
+  .then(() => console.log('✅ MongoDB connected'))
+  .catch((err) => console.error('❌ MongoDB connection error:', err));
 
-// Start server
+/* ========= SERVER ========= */
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
