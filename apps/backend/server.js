@@ -7,7 +7,10 @@ const app = express();
 
 // Middleware - CORS with specific origin
 app.use(cors({
-  origin: 'http://localhost:3000',
+   origin: [
+    'http://localhost:3000',
+    'https://go-tour-admin-frontend.vercel.app/admin/login'
+  ],
   credentials: true
 }));
 app.use(express.json());
